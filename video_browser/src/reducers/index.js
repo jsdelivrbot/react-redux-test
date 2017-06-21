@@ -4,7 +4,7 @@ import videoreducer from "./reducer_video";
 
 const rootReducer = combineReducers({
   videos: videosreducer,
-  selectedVideo: videoreducer
+  video: videoreducer
 });
 
 export default rootReducer;

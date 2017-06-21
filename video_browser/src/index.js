@@ -28,8 +28,10 @@ class App extends Component {
 
 const createStoreWithMiddleware = applyMiddleware(ReduxPromise)(createStore);
 
+window.mystore = createStoreWithMiddleware(reducers);
+
 ReactDOM.render(
-  <Provider store={createStoreWithMiddleware(reducers)}>
+  <Provider store={mystore}>
     <App />
   </Provider>, 
   document.querySelector(".container")

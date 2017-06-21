@@ -4,11 +4,11 @@ import { connect } from "react-redux";
 class VideoDetail extends Component {
 
   render() {
-    if (!this.props.selectedVideo) {
+    if (!this.props.video) {
       return <div>Loading...</div>;
     }
 
-    const videoId = this.props.selectedVideo.id.videoId;
+    const videoId = this.props.video.id.videoId;
     const url = `https://www.youtube.com/embed/${videoId}`;
 
     return (
@@ -17,16 +17,16 @@ class VideoDetail extends Component {
           <iframe className="embed-responsive-item" src={url} />
         </div>
         <div className="details">
-          <div>{this.props.selectedVideo.snippet.title}</div>
-          <div>{this.props.selectedVideo.snippet.description}</div>
+          <div>{this.props.video.snippet.title}</div>
+          <div>{this.props.video.snippet.description}</div>
         </div>
       </div>
     );
   }
 }
 
-function mapStateToProps({ selectedVideo }) {
-  return { selectedVideo };
+function mapStateToProps({ video }) {
+  return { video };
 }
 
 export default connect(mapStateToProps)(VideoDetail);

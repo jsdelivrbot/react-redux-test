@@ -1,20 +1,39 @@
-import React from "react";
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import { setSelectedVideo } from "../actions";
 
-const VideoListItem = ({ video, onVideoSelect }) => {
-  const imageUrl = video.snippet.thumbnails.default.url;
+class VideoListItem extends Component {
 
-  return (
-    <li onClick={() => onVideoSelect(video)} className="list-group-item">
+  constructor(props) {
+    super(props);
+
+    this.imageUrl = this.props.video.snippet.thumbnails.default.url;
+    this.selectVideo = this.selectVideo.bind(this);
+  }
+
+  selectVideo = () => {
+    this.props.setSelectedVideo(this.props.video);
+  }
+
+  render() {
+    return (
+    <li onClick={this.selectVideo} className="list-group-item">
       <div className="video-list media">
         <div className="media-left">
-          <img className="media-object" src={imageUrl} />
+          <img className="media-object" src={this.imageUrl} />
         </div>
         <div className="media-body">
-          <div className="media-heading">{video.snippet.title}</div>
+          <div className="media-heading">{this.props.video.snippet.title}</div>
         </div>
       </div>
     </li>
   );
-};
+  }
+}
 
-export default VideoListItem;
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ setSelectedVideo }, dispatch);
+}
+
+export default connect(null, mapDispatchToProps)(VideoListItem);

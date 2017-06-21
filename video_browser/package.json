@@ -25,6 +25,7 @@
     "react-dom": "^0.14.3",
     "react-redux": "^4.4.8",
     "redux": "^3.7.0",
+    "redux-promise": "^0.5.3",
     "youtube-api-search": "0.0.5"
   }
 }

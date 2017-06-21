@@ -1,24 +1,28 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
 import VideoListItem from "./video_list_item";
+import { setSelectedVideo } from "../actions";
 
 class VideoList extends Component {
 
-  videoItems () {
-    return this.props.videos.map(video => {
-      return (
-        <VideoListItem
-          onVideoSelect={props.onVideoSelect}
-          key={video.etag}
-          video={video}
-        />
-      );
-    });
+  renderVideoListItem(video) {
+    return (
+      <VideoListItem
+        key={video.etag}
+        video={video}
+      />
+    ); 
+  }
+
+  componentDidUpdate() {
+    this.props.setSelectedVideo(this.props.videos[0]);
   }
 
   render() {
     return (
       <ul className="col-md-4 list-group">
-        {videoItems}
+        {this.props.videos.map(this.renderVideoListItem)}
       </ul>
     );
   }
@@ -27,5 +31,8 @@ class VideoList extends Component {
 function mapStateToProps({ videos }) {
   return { videos };
 }
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ setSelectedVideo }, dispatch);
+}
 
-export default connect(mapStateToProps)(VideoList);
+export default connect(mapStateToProps, mapDispatchToProps)(VideoList);
